@@ -1,0 +1,18 @@
+<app-sidebar [showsidebar]="showHeader"></app-sidebar>
+<app-header *ngIf="showHeader"></app-header>
+
+<router-outlet>
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img
+      class="animation__shake"
+      src="assets/dist/img/AdminLTELogo.png"
+      alt="Pranavsoft"
+      height="60"
+      width="60"
+    />
+  </div>
+</router-outlet>
+
+<app-my-loader></app-my-loader>
+
+<app-footer *ngIf="showHeader"></app-footer>

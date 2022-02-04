@@ -1,0 +1,12 @@
+.info-box .info-box-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.info-box {
+    margin: 0 !important;
+    min-height: auto;   
+}
+.info-box-content h4 {
+    margin: 0;
+}

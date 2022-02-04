@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+  .content-wrapper,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+  .main-footer,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+  .main-header {
+  margin: 0 !important;
+}
+.card {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0 15px;
+}
+.create-badge {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  padding: 0.3rem 0.4rem 0.28rem;
+  margin: 0 0.3rem;
+  border-radius: 0.25rem;
+}
+.action-cta {
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-basis: 100%;
+  justify-content: space-between;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.form-control {
+  width: 80%;
+}
+.home-icon {
+  float: right;
+}
+.col-form-label {
+  padding: 0 !important;
+}
+.form-control {
+  height: calc(1.75rem + 2px) !important;
+  font-size: 0.8rem !important;
+}

@@ -1,0 +1,37 @@
+.section {
+  display: flex;
+  flex-flow: row wrap;
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  p {
+    margin: 0;
+    font-size: 16px;
+    padding: 2em 0;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+  }
+  .btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-basis: 100%;
+    button {
+      padding-left: 25px;
+      padding-right: 25px;
+      font-size: 16px;
+      box-shadow: 0px 0px 10px #eac5c229;
+      border-radius: 5px;
+      color: #fff;
+      background: #f44336;
+      width: 132px;
+      height: 34px;
+      &:first-child {
+        color: #000000;
+        background: none;
+      }
+    }
+  }
+}

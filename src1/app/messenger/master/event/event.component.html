@@ -1,0 +1,144 @@
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-4">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Entry</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Event</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter Customer" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="exampleInputEmail1" class="col-sm-3 col-form-label"> Sort No.</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter Customer" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div
+                                        class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                        <input type="checkbox" class="custom-control-input" id="custActive">
+                                        <label class="custom-control-label" for="custActive">Active</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="form-group">
+                                <div class="float-left ml-1">
+                                    <p-button label="Save" (click)="SaveEdit()" icon="pi pi-users"
+                                        styleClass="p-button-success" badge="S" badgeClass="p-badge-info"></p-button>
+                                    <!-- /.info-box -->
+                                </div>
+                                <div class="float-right mr-1">
+                                    <p-button label="Reset" (click)="Cleardata()" icon="pi pi-users"
+                                        styleClass="p-button-warning" badge="C" badgeClass="p-badge-danger"></p-button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- right column -->
+                <div class="col-md-8">
+                    <!-- Form Element sizes -->
+
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">List</h3>
+
+                            <div class="card-tools">
+                                <ul class="pagination pagination-sm float-right">
+                                    <li class="page-item"><a class="page-link" style="color: rgb(207, 145, 11);"
+                                            href="#">&laquo;</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" style="color: black;" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" style="color: black;" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" style="color: black;" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" style="color: rgb(207, 145, 11);"
+                                            href="#">&raquo;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Customer</th>
+                                        <th>SMS Utility</th>
+                                        <th style="width: 40px">Clients</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td>Update software</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-danger">55%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td>Clean database</td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-warning">70%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td>Cron job running</td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-primary">30%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.</td>
+                                        <td>Fix and squish bugs</td>
+                                        <td>
+                                            <div class="progress progress-xs progress-striped active">
+                                                <div class="progress-bar bg-success" style="width: 90%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-success">90%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

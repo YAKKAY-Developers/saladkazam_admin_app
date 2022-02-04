@@ -1,0 +1,30 @@
+{
+    "restaurant_name": "Chick-fil-a",
+    "logo": "assets/images/great-american-restaurants-office.jpg",
+    "locations": 10,
+    "menu_items": 20,
+    "prepared_ingredients": 30,
+    "items": [
+        {
+            "name": "Spicy Chicken",
+            "type": "Main course",
+            "description": "A boneless breast of chicken seasoned with a spicy blend of peppers, freshly breaded, pressure cooked in 100% refined peanut oil and",
+            "ingredients": "Bail Park Hamburger bun, Chicken Patty, Mt. Olive Pickles, Chipotle Mayo, Lettuce",
+            "id":1
+        },
+        {
+            "name": "Spicy Chicken Delux",
+            "type": "Main course",
+            "description": "A boneless breast of chicken seasoned with a spicy blend of peppers, freshly breaded, pressure cooked in 100% refined peanut oil and",
+            "ingredients": "Bail Park Hamburger bun, Chicken Patty, Mt. Olive Pickles, Chipotle Mayo, Lettuce",
+            "id":2
+        },
+        {
+            "name": "Chicken Nugget",
+            "type": "Main course",
+            "description": "A boneless breast of chicken seasoned with a spicy blend of peppers, freshly breaded, pressure cooked in 100% refined peanut oil and",
+            "ingredients": "Bail Park Hamburger bun, Chicken Patty, Mt. Olive Pickles, Chipotle Mayo, Lettuce",
+            "id":3
+        }
+    ]
+}

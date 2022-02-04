@@ -1,0 +1,22 @@
+<div class="section">
+  <p>Are you sure you want to delete {{ data.userName }}?</p>
+  <div class="btn" mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="grey"
+      (click)="dialogRef.close(false)"
+      cdkFocusInitial
+    >
+      No
+    </button>
+
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="dialogRef.close(true)"
+      class="default"
+    >
+      Yes
+    </button>
+  </div>
+</div>

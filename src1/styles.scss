@@ -1,0 +1,154 @@
+/* SCSS */
+@import "scss/style";
+
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  font-family: "Mada", sans-serif;
+  font-size: 14px;
+  color: #535763;
+  font-weight: 400;
+  background: #f4f5fa;
+  position: relative;
+}
+
+// body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+//   .content-wrapper,
+// body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+//   .main-footer,
+// body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav)
+//   .main-header {
+//   margin: 0 !important;
+// }
+.card {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0 15px 15px;
+}
+.create-badge {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+  padding: 0.3rem 0.4rem 0.28rem;
+  margin: 0 0.3rem;
+  border-radius: 0.25rem;
+}
+.action-cta {
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-basis: 100%;
+  justify-content: space-between;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.form-control {
+  width: 100%;
+}
+.home-icon {
+  float: right;
+}
+.wrapper {
+  margin-bottom: 54px;
+}
+.main-header {
+  z-index: 1;
+}
+.content-wrapper {
+  margin-bottom: 5em;
+}
+.col-form-label {
+  padding: 0 !important;
+}
+.form-control {
+  height: calc(1.75rem + 2px);
+  font-size: 0.8rem !important;
+}
+
+.wrapper,
+body,
+html {
+  overflow-x: hidden;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.is-invalid {
+  .input-group-text,
+  select,
+  input,
+  input:focus {
+    border-color: #dc3545;
+    border-radius: 0;
+  }
+  .error-field {
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    color: #dc3545;
+  }
+}
+.is-valid {
+  .success {
+    width: 100%;
+    color: green;
+    font-size: 14px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+  }
+}
+
+.badge {
+  font-size: 14px;
+}
+
+.hide {
+  display: none !important;
+}
+.align-center {
+  text-align: center;
+}
+.name-plate {
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.layout-fixed .brand-link {
+  overflow: hidden;
+}
+.nav-treeview > .nav-item > .nav-link.active {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+.main-footer {
+  z-index: 1;
+}
+
+.left-20 {
+  left: -20px;
+}
+.right-20 {
+  right: -20px;
+}
+
+.sidebar-mini.sidebar-collapse .brand-text {
+  display: none;
+}

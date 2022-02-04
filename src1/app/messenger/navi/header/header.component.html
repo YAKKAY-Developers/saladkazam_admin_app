@@ -1,0 +1,104 @@
+<!-- Navbar -->
+<nav
+  class="main-header navbar navbar-expand navbar-white navbar-light"
+  [class.ml-0]="accessType === 'T'"
+>
+  <!-- Left navbar links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        data-widget="pushmenu"
+        href="#"
+        role="button"
+        [class.d-none]="accessType === 'T'"
+        ><i class="fas fa-bars"></i
+      ></a>
+    </li>
+    <li class="nav-item d-none d-sm-inline-block">
+      <div class="col-md-12 col-sm-12 col-12">
+        <div class="info-box" style="box-shadow: none">
+          <span class="info-box-icon bg-info">
+            <img
+              src="assets/dist/img/CompLogo.jpg"
+              alt="User Avatar"
+              class="img-size-100"
+            />
+          </span>
+
+          <div class="info-box-content">
+            <h4>LeadershipSmarts</h4>
+            <!-- <p>Periyar nagar, Nehru Nagar East,Coimbatore-14</p> -->
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+    </li>
+  </ul>
+
+  <!-- Right navbar links -->
+  <ul class="navbar-nav ml-auto">
+    <!-- Navbar Search -->
+    <!-- <li class="nav-item">
+            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                <i class="fas fa-search"></i>
+            </a>
+            <div class="navbar-search-block">
+                <form class="form-inline">
+                    <div class="input-group input-group-sm">
+                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-navbar" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li> -->
+
+    <!-- Messages Dropdown Menu -->
+
+    <!-- Notifications Dropdown Menu -->
+
+    <li class="nav-item">
+      <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <i class="fas fa-expand-arrows-alt"></i>
+      </a>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#">
+        <i class="fas fa-user"></i>
+        <!-- <span class="badge badge-danger navbar-badge">3</span> -->
+      </a>
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <!-- <span class="dropdown-item dropdown-header">{{Loguser.UserName}}</span> -->
+        <div class="dropdown-divider"></div>
+        <a routerLink="/master/Admin/{{ userId }}" class="dropdown-item">
+          <span class="float-right text-sm text-primary">
+            <i class="fas fa-users"> </i> </span
+          >Profile
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/feedback" class="dropdown-item">
+          <span class="float-right text-sm">
+            <i class="fas fa-comments"></i> </span
+          >Feedback
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="javascript:void(0)" class="dropdown-item" (click)="onLogout()">
+          <span class="float-right text-sm text-danger">
+            <i class="fas fa-sign-out-alt"></i> </span
+          >Logout
+        </a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<!-- /.navbar -->

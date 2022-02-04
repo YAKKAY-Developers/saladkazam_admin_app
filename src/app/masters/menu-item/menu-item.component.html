@@ -1,0 +1,383 @@
+<div class="row">
+  <div class="col-md-12 custom-container">
+    <div class="form-group custom-search">
+      <input
+        type="text"
+        class="search form-control"
+        placeholder="Search by name"
+        (keyup)="searchData($event)"
+      />
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary float-right m-b-10"
+      data-toggle="modal"
+      #addRestaurantBtn
+      (click)="addMenuModal.show(); clearData()"
+    >
+      Add Menu
+    </button>
+    <!-- add restaurant modal -->
+  </div>
+
+  <!-- customer overview start -->
+  <div class="col-md-12">
+    <app-card cardTitle="" cardClass="table-card" blockClass="p-0">
+      <!-- <perfect-scrollbar [style.max-height]="'362px'"> -->
+      <table class="table table-hover m-b-0">
+        <thead>
+          <tr>
+            <th><span>Item Name</span></th>
+            <th><span>Type</span></th>
+            <th><span>Description</span></th>
+            <th><span>Ingredients</span></th>
+            <th><span>Status</span></th>
+            <th class="text-center"><span>Action</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of tableData
+                | slice: (defaultPage - 1) * pageSize:defaultPage * pageSize
+            "
+          >
+            <td>
+              <a>{{ item?.MenuName }}</a>
+            </td>
+            <td>
+              <span> {{ item?.Type }} </span>
+            </td>
+            <td>
+              <span> {{ item?.des }} </span>
+            </td>
+            <td>
+              <span>
+                <ng-container
+                  *ngFor="let ingredient of item.Menudescription; let i = index"
+                  >{{ ingredient.IngredientName
+                  }}<ng-container *ngIf="i < item.Menudescription.length - 1"
+                    >,
+                  </ng-container>
+                </ng-container>
+              </span>
+            </td>
+            <td>
+              <span>
+                <i class="fas fa-check" *ngIf="item?.Active"></i>
+                <i class="fas fa-times" *ngIf="!item?.Active"></i>
+              </span>
+            </td>
+            <td class="text-center">
+              <div
+                class="btn-group mb-1 mr-1"
+                ngbDropdown
+                [placement]="'bottom-left'"
+              >
+                <button
+                  class="btn btn-secondary"
+                  ngbDropdownToggle
+                  type="button"
+                >
+                  Action
+                </button>
+                <div ngbDropdownMenu>
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="addMenuModal.show(); getData(item?.MenuID, 'view')"
+                    >View</a
+                  >
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="addMenuModal.show(); getData(item?.MenuID)"
+                    >Edit</a
+                  >
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="deleteRestaurantData = item; confirmDelete.show()"
+                  >
+                    Delete</a
+                  >
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </perfect-scrollbar> -->
+
+      <!-- Loader -->
+      <p class="text-center font-weight-bolder m-50" *ngIf="loader">
+        Loading...
+      </p>
+      <p
+        class="text-center font-weight-bolder m-50"
+        *ngIf="!tableData.length && !loader"
+      >
+        There is no menu item yet, add items
+      </p>
+
+      <!-- </perfect-scrollbar> -->
+      <hr *ngIf="!loader" />
+      <div class="horizontal-scroll p-10">
+        <ngb-pagination
+          class="d-flex justify-content-end"
+          [collectionSize]="tableData.length"
+          [(page)]="defaultPage"
+          [pageSize]="pageSize"
+          [rotate]="false"
+          [boundaryLinks]="true"
+        ></ngb-pagination>
+      </div>
+    </app-card>
+  </div>
+  <!-- customer overview start -->
+  <!-- <div class="horizontal-scroll"><ngb-pagination [collectionSize]="120" [(page)]="defaultPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination></div> -->
+</div>
+
+<!-- add menu modal -->
+<app-ui-modal #addMenuModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">
+      {{ isEdit ? "Edit" : viewOnly ? "" : "Add" }} Menu
+    </h5>
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      style="outline: none"
+      aria-label="Close"
+      (click)="addMenuModal.hide(); resetData()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body">
+    <div class="col-md-12">
+      <form #menuForm="ngForm" (ngSubmit)="menuForm.form.valid && SaveEdit()">
+        <div class="form-group row">
+          <label for="menu" class="col-sm-3 col-form-label">Menu Name</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              (menuForm.submitted && menuName.invalid) || isExist
+            "
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="menu"
+              name="name"
+              placeholder="Enter Menu"
+              required
+              autocomplete="off"
+              [(ngModel)]="menuData.MenuName"
+              #menuName="ngModel"
+            />
+            <div
+              class="error-field"
+              *ngIf="menuForm.submitted && menuName.errors?.required"
+            >
+              Menu name is required
+            </div>
+            <div class="error-field" *ngIf="isExist">
+              Menu name already exist
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="description" class="col-sm-3 col-form-label"
+            >Description</label
+          >
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="menuForm.submitted && menuDescription.invalid"
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+              placeholder="Enter Description"
+              [(ngModel)]="menuData.Menudescription"
+              required
+              autocomplete="off"
+              #menuDescription="ngModel"
+            />
+            <div
+              class="error-field"
+              *ngIf="menuForm.submitted && menuDescription.errors?.required"
+            >
+              Description is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="category" class="col-sm-3 col-form-label">Category</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="menuForm.submitted && menuType.invalid"
+          >
+            <select
+              class="custom-select"
+              name="category"
+              [(ngModel)]="menuData.CategoryID"
+              #menuType="ngModel"
+              required
+            >
+              <option
+                *ngFor="let cat of foodCategoryList"
+                value="{{ cat.CategoryID }}"
+              >
+                {{ cat.CategoryName }}
+              </option>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="menuForm.submitted && menuType.errors?.required"
+            >
+              Category is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="type" class="col-sm-3 col-form-label">Type</label>
+          <div class="col-sm-9">
+            <select
+              class="custom-select"
+              name="category"
+              (change)="getIngredientLists($event.target.value)"
+            >
+              <option value="">Select Type</option>
+              <option value="1">Ingredients</option>
+              <option value="2">Prepared Ingredients</option>
+              <option value="3">Manufactured Ingredients</option>
+              <!-- <option
+                *ngFor="let type of foodTypes"
+                value="{{ type.InggroupID }}"
+              >
+                {{ type.Desc }}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+        <!-- pick list component -->
+        <pick-list
+          [ingredientLists]="ingredientLists"
+          (selectedIngredients)="ingredientChoosen($event)"
+          [selectedIngredientLists]="selectedSourceIngredients"
+        ></pick-list>
+        <div class="is-invalid">
+          <div
+            class="error-field mb-4"
+            *ngIf="menuForm.submitted && !selectedSourceIngredients.length"
+          >
+            Please select atleast one ingredient
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="SortNo" class="col-sm-9 col-form-label">Sort No</label>
+          <div class="col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              style="text-align: right"
+              id="SortNo"
+              name="SortNo"
+              placeholder="No."
+              [(ngModel)]="menuData.SortNo"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="checkActive"
+                name="checkActive"
+                [(ngModel)]="menuData.Active"
+                [checked]="menuData.Active ? true : false"
+              />
+              <label class="custom-control-label" for="checkActive"
+                >Active</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="float-left mr-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="reset" class="btn btn-danger" (click)="clearData()">
+              <i class="feather icon-rotate-ccw" style="padding-right: 10px"></i
+              >Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="float-right ml-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="submit" class="btn btn-secondary">
+              <i
+                class="feather icon-check-circle"
+                style="padding-right: 10px"
+              ></i
+              >Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-ui-modal>
+
+<app-alert type="success" dismiss="true" *ngIf="isSuccess">{{
+  successMessage
+}}</app-alert>
+<app-alert type="danger" dismiss="true" *ngIf="isFailed">{{
+  failMessage
+}}</app-alert>
+
+<!-- delete confirmation modal -->
+<app-ui-modal #confirmDelete [containerClick]="false" class="confirm-box">
+  <div class="app-modal-header">
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="confirmDelete.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body text-center">
+    <label class="confirm-text"
+      >Are you sure want to delete {{ deleteRestaurantData?.MenuName }}</label
+    >
+  </div>
+  <div class="app-modal-footer border-0" style="padding: 1rem">
+    <button
+      type="button"
+      class="btn btn-primary btn-confirm-close"
+      data-dismiss="modal"
+      (click)="confirmDelete.hide()"
+    >
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteMenu(deleteRestaurantData); confirmDelete.hide()"
+    >
+      Yes
+    </button>
+  </div>
+</app-ui-modal>

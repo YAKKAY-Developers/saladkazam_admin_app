@@ -1,0 +1,79 @@
+<div class="form-group row">
+  <div
+    class="col-sm-12"
+    style="display: flex; justify-content: center; align-items: center"
+  >
+    <div class="subject-info-box-1">
+      <div class="picklist-title">Select Ingredient</div>
+      <div class="custom-search">
+        <input
+          type="text"
+          class="search form-control"
+          placeholder="Search"
+          (keyup)="searchData($event, 'box1')"
+        />
+      </div>
+      <select
+        [(ngModel)]="selectedFromBox1"
+        multiple="multiple"
+        name="selectBox1"
+        class="form-control"
+      >
+        <option
+          [value]="item?.IngredientID"
+          *ngFor="let item of selectListBox1"
+        >
+          {{ item?.IngredientName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="subject-info-arrows text-center m-10">
+      <input
+        type="button"
+        id="btnRight"
+        value=">>"
+        class="btn btn-primary"
+        (click)="moveToSelected()"
+        [class.disabled]="!selectListBox1.length"
+        [disabled]="!selectListBox1.length"
+      />
+      <input
+        type="button"
+        id="btnLeft"
+        value="<<"
+        class="btn btn-primary"
+        (click)="removeFromSelected()"
+        [class.disabled]="!selectListBox2.length"
+        [disabled]="!selectListBox2.length"
+      />
+    </div>
+
+    <div class="subject-info-box-2">
+      <div class="picklist-title">Selected Ingredient</div>
+      <div class="custom-search">
+        <input
+          type="text"
+          class="search form-control"
+          placeholder="Search"
+          (keyup)="searchData($event, 'box2')"
+        />
+      </div>
+      <select
+        [(ngModel)]="selectedFromBox2"
+        multiple="multiple"
+        name="selectBox2"
+        class="form-control"
+      >
+        <option
+          [value]="item?.IngredientID"
+          *ngFor="let item of selectListBox2"
+        >
+          {{ item?.IngredientName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</div>

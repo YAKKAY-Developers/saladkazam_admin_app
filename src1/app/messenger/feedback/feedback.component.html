@@ -1,0 +1,67 @@
+<section class="content pt-5 pb-5 m-4">
+  <!-- Default box -->
+  <div class="card col-5" style="margin: auto">
+    <div class="mt-4 d-flex align-items-center justify-content-center">
+      <div class="">
+        <h2>Feedback</h2>
+      </div>
+    </div>
+    <div class="card-body row justify-content-center">
+      <div class="col-10">
+        <form
+          #feedbackForm="ngForm"
+          (ngSubmit)="feedbackForm.form.valid && sendFeedback()"
+          novalidate
+        >
+          <div
+            class="form-group"
+            [class.is-invalid]="feedbackForm.submitted && feebackTitle.invalid"
+          >
+            <label for="inputTitle">Title</label>
+            <input
+              type="text"
+              name="title"
+              class="form-control"
+              #feebackTitle="ngModel"
+              required
+              autocomplete="off"
+              [(ngModel)]="feedback.title"
+            />
+            <div
+              class="error-field"
+              *ngIf="feedbackForm.submitted && feebackTitle.errors?.required"
+            >
+              Title is required
+            </div>
+          </div>
+          <div
+            class="form-group"
+            [class.is-invalid]="feedbackForm.submitted && message.invalid"
+          >
+            <label for="inputMessage">Message</label>
+            <textarea
+              class="form-control"
+              name="message"
+              rows="4"
+              #message="ngModel"
+              required
+              autocomplete="off"
+              [(ngModel)]="feedback.message"
+            ></textarea>
+            <div
+              class="error-field"
+              *ngIf="feedbackForm.submitted && message.errors?.required"
+            >
+              Message is required
+            </div>
+          </div>
+          <div class="form-group align-center">
+            <button class="btn btn-primary">Send message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p-toast></p-toast>

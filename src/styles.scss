@@ -1,0 +1,187 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* SCSS */
+@import "scss/style";
+
+.btn-darkblue {
+  background: linear-gradient(rgb(254, 230, 176), rgb(238, 186, 55))
+    rgb(254, 230, 176);
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  border-width: 1px;
+  border-style: solid;
+  border-image: initial;
+  border-color: rgb(190, 149, 44) rgb(166, 130, 38) rgb(155, 121, 36);
+  border-radius: 3px;
+  vertical-align: middle;
+  text-decoration: none;
+  overflow: hidden;
+  color: currentcolor;
+  transform: translate3d(0px, 0px, 0px);
+  height: 24px;
+  padding: 0px 10px 0px 11px;
+  width: 91px;
+  text-align: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.custom-card .count-items span {
+  font-size: 16px;
+  color: #535763;
+  font-weight: 600;
+}
+table th {
+  background: #dee2e6;
+  font-size: 16px;
+  font-weight: 600;
+}
+table td {
+  &:last-child {
+    width: 25%;
+    max-width: 25%;
+  }
+}
+body {
+  font-family: sans-serif;
+}
+.btn-primary {
+  background: linear-gradient(rgb(254, 230, 176), rgb(238, 186, 55))
+    rgb(254, 230, 176);
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  border-width: 1px;
+  border-style: solid;
+  border-image: initial;
+  border-color: rgb(190, 149, 44) rgb(166, 130, 38) rgb(155, 121, 36);
+  border-radius: 3px;
+  vertical-align: middle;
+  text-decoration: none;
+  overflow: hidden;
+  color: currentcolor;
+  transform: translate3d(0px, 0px, 0px);
+  height: 24px;
+  padding: 0px 10px 0px 11px;
+  // width: 200px;
+  text-align: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.custom-pills .nav-pills .nav-link.active {
+  color: #ffefaf;
+  background: #6c757d;
+  border-color: #6c757d;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: "Mada";
+}
+.custom-pills .nav-pills .nav-link {
+  color: #6c757d;
+  font-family: "Mada";
+  font-weight: 800;
+  font-size: 16px;
+}
+.dropdown-menu > .dropdown-item:hover {
+  background: #dee2e6;
+  color: #fff;
+  padding: 0 10px;
+  height: 30px !important;
+}
+.dropdown-item12 {
+  height: 40px !important;
+}
+.btn-primary:hover {
+  color: #003c73;
+}
+.pcoded-header.header-blue {
+  background: #3a3a3a;
+}
+
+.select {
+  position: relative;
+  .select-control {
+    &.focus {
+      outline-color: rgb(77, 144, 254);
+      outline-offset: -2px;
+      outline-style: auto;
+      outline-width: 5px;
+    }
+    .select-control-caret {
+      position: absolute;
+      right: 12px;
+      line-height: 1.5em;
+    }
+  }
+  .select-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: 1px solid #7b9dd4;
+    .select-list-searchbox {
+      margin: 10px;
+      width: 95%;
+    }
+    .select-list-item {
+      background: white;
+      padding: 0 12px 0 12px;
+      &:hover {
+        background: #1e90ff;
+        color: white;
+      }
+    }
+  }
+}
+
+.is-invalid {
+  .input-group-text,
+  select,
+  input,
+  input:focus {
+    border-color: #dc3545;
+    border-radius: 0;
+  }
+  .error-field {
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    color: #dc3545;
+  }
+}
+.is-valid {
+  .success {
+    width: 100%;
+    color: green;
+    font-size: 14px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+  }
+}
+
+app-alert {
+  position: fixed;
+  z-index: 10000;
+  top: 5rem;
+  right: 0.5rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.btn-confirm-close {
+  height: 24px;
+  padding: 0px 10px 0px 11px;
+  margin-right: 1rem;
+  background: linear-gradient(#fee6b0, #dc3545) #ada799 !important;
+}
+
+.app-modal-body {
+  .confirm-text {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

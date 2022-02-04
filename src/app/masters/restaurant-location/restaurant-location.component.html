@@ -1,0 +1,523 @@
+<div class="row">
+  <!-- conversion-section start -->
+  <div class="col-md-12">
+    <app-card [hidHeader]="true">
+      <div class="custom-row">
+        <div>Restaurant Name : {{ restaurant }}</div>
+        <div class="last">
+          Logo
+          <img [src]="rest_logo" class="logo" />
+        </div>
+      </div>
+    </app-card>
+  </div>
+
+  <div class="col-xl-12" style="display: flex; justify-content: space-between">
+    <div class="col-xl-4 p-l-0">
+      <app-card [hidHeader]="true">
+        <div class="custom-card">
+          <div class="count-items">
+            <span>Total Locations</span>
+            <h3>{{ restaurantLocationData?.total_locations }}</h3>
+          </div>
+          <div class="icon">
+            <i class="feather icon-map-pin"></i>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-xl-4 p-l-0">
+      <app-card [hidHeader]="true">
+        <div class="custom-card">
+          <div class="count-items">
+            <span>Total Menus</span>
+            <h3>{{ restaurantLocationData?.total_menus }}</h3>
+          </div>
+          <div class="icon">
+            <i class="feather icon-list"></i>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    <div class="col-xl-4 p-0">
+      <app-card [hidHeader]="true">
+        <div class="custom-card">
+          <div class="count-items">
+            <span>Prepared Ingredients</span>
+            <h3>{{ restaurantLocationData?.total_ing }}</h3>
+          </div>
+          <div class="icon">
+            <i class="feather icon-feather"></i>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  <!-- conversion-section end -->
+
+  <div class="col-md-12 custom-pills">
+    <app-card [hidHeader]="true" cardClass="tab-card">
+      <!-- <h5 class="mb-3">Basic Pills</h5> -->
+      <ngb-tabset type="pills">
+        <ngb-tab title="Menu" class="mb-3">
+          <ng-template ngbTabContent>
+            <app-menu-item (menuUpdated)="resetData()"></app-menu-item>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Locations" class="mb-3" (click)="resetData()">
+          <ng-template ngbTabContent>
+            <div class="row">
+              <div class="col-md-12 custom-container">
+                <div class="form-group custom-search">
+                  <input
+                    type="text"
+                    class="search form-control"
+                    placeholder="Search by State"
+                    (keyup)="searchData($event)"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-primary float-right m-b-10"
+                  data-toggle="modal"
+                  #addRestaurantBtn
+                  (click)="addRestaurantModal.show()"
+                >
+                  Add Location
+                </button>
+                <!-- add restaurant modal -->
+              </div>
+
+              <!-- customer overview start -->
+              <div class="col-md-12">
+                <app-card cardTitle="" cardClass="table-card" blockClass="p-0">
+                  <!-- <perfect-scrollbar [style.max-height]="'362px'"> -->
+                  <table class="table table-hover m-b-0">
+                    <thead>
+                      <tr>
+                        <th><span>State</span></th>
+                        <th><span>City</span></th>
+                        <th><span>Address</span></th>
+                        <th class="text-center"><span>Action</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="
+                          let item of tableData
+                            | slice
+                              : (defaultPage - 1) * pageSize
+                              : defaultPage * pageSize
+                        "
+                      >
+                        <td>
+                          <a>{{ item.State }}</a>
+                        </td>
+                        <td>
+                          <span> {{ item.City }} </span>
+                        </td>
+                        <td>
+                          <span>
+                            {{ item?.Address }}
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <div class="action-cta">
+                            <button
+                              type="button"
+                              class="btn btn-icon m-2 btn-outline-warning"
+                              (click)="
+                                getData(item.LocIDid, 'view');
+                                addRestaurantModal.show()
+                              "
+                            >
+                              <i class="feather icon-eye"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-icon m-2 btn-outline-info"
+                              (click)="
+                                getData(item.LocIDid); addRestaurantModal.show()
+                              "
+                            >
+                              <i class="feather icon-edit"></i>
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-icon m-2 btn-outline-danger"
+                              (click)="
+                                deleteRestaurantData = item;
+                                confirmDelete.show()
+                              "
+                            >
+                              <i class="feather icon-trash-2"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- </perfect-scrollbar> -->
+
+                  <!-- Loader -->
+                  <p class="text-center font-weight-bolder m-50" *ngIf="loader">
+                    Loading...
+                  </p>
+
+                  <p
+                    class="text-center font-weight-bolder m-50"
+                    *ngIf="!tableData.length && !loader"
+                  >
+                    No location added yet
+                  </p>
+
+                  <!-- </perfect-scrollbar> -->
+                  <hr *ngIf="!loader" />
+                  <div class="horizontal-scroll p-10">
+                    <ngb-pagination
+                      class="d-flex justify-content-end"
+                      [collectionSize]="tableData.length"
+                      [(page)]="defaultPage"
+                      [pageSize]="pageSize"
+                      [rotate]="false"
+                      [boundaryLinks]="true"
+                    ></ngb-pagination>
+                  </div>
+                </app-card>
+              </div>
+              <!-- customer overview start -->
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Prepared Ingredients">
+          <ng-template ngbTabContent>
+            <app-ingredient (ingredientsUpdated)="resetData()"></app-ingredient>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </app-card>
+  </div>
+</div>
+
+<app-ui-modal #addRestaurantModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">
+      {{ isEdit ? "Edit" : viewOnly ? "" : "Add" }} Location
+    </h5>
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      style="outline: none"
+      aria-label="Close"
+      (click)="addRestaurantModal.hide(); resetData()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body">
+    <div class="col-md-12">
+      <form
+        #restaurantLocationForm="ngForm"
+        (ngSubmit)="restaurantLocationForm.form.valid && SaveEdit()"
+      >
+        <div class="form-group row">
+          <label for="restaurant" class="col-sm-3 col-form-label">Name</label>
+          <div class="col-sm-9">
+            <label for="restaurant" class="col-form-label">{{
+              restaurant
+            }}</label>
+          </div>
+        </div>
+
+        <div class="form-group row d-none">
+          <label for="logo" class="col-sm-3 col-form-label">Logo</label>
+          <div class="col-sm-9">
+            <div class="custom-file">
+              <input
+                type="file"
+                #file
+                accept="image/*"
+                placeholder="Choose file"
+                (change)="onFileChanged($event.target.files)"
+                style="display: none"
+                (change)="uploadFile(file.files)"
+              />
+              <div class="upload-area" (click)="file.click()">
+                <img src="assets/images/upload.png" />
+                <span> Upload File </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row d-none" *ngIf="imageUrl">
+          <label for="preview" class="col-sm-3 col-form-label">Preview</label>
+          <div class="col-sm-9">
+            <div
+              style="
+                padding: 5px;
+                text-align: center;
+                box-shadow: 1px 1px 2px 3px rgb(54 80 138 / 30%);
+                border: none;
+                width: 200px;
+                height: 150px;
+              "
+            >
+              <img
+                src="{{ imageUrl }}"
+                alt="Image"
+                style="width: 100%; height: 100%; object-fit: contain"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="form-group row"
+          [class.is-invalid]="
+            restaurantLocationForm.submitted && restaurantAddress1.invalid
+          "
+        >
+          <label for="address" class="col-sm-3 col-form-label">Address</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+              placeholder="Enter Address 1"
+              #restaurantAddress1="ngModel"
+              [(ngModel)]="restaurantLocation.Address1"
+              autocomplete="off"
+            />
+            <div
+              class="error-field"
+              *ngIf="
+                restaurantLocationForm.submitted &&
+                restaurantAddress1.errors?.required
+              "
+            >
+              Restaurant address is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="address1" class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="address2"
+              name="address2"
+              placeholder="Enter Address 2"
+              [(ngModel)]="restaurantLocation.Address2"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="state" class="col-sm-3 col-form-label">State</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              restaurantLocationForm.submitted && state.invalid
+            "
+          >
+            <select
+              class="custom-select"
+              name="state"
+              (change)="changeState($event)"
+              [(ngModel)]="restaurantLocation.StateID"
+              required
+              #state="ngModel"
+            >
+              <option>Select State</option>
+              <ng-container *ngFor="let state of stateList">
+                <option [value]="state.StateID">{{ state.StateName }}</option>
+              </ng-container>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="restaurantLocationForm.submitted && state.errors?.required"
+            >
+              State is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="city" class="col-sm-3 col-form-label">City</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              restaurantLocationForm.submitted && city.invalid
+            "
+          >
+            <select
+              class="custom-select"
+              name="city"
+              [(ngModel)]="restaurantLocation.cityID"
+              required
+              #city="ngModel"
+            >
+              <option>Select City</option>
+              <ng-container *ngFor="let city of citiesList">
+                <option [value]="city.ID">{{ city.CityName }}</option>
+              </ng-container>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="restaurantLocationForm.submitted && city.errors?.required"
+            >
+              City is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="zip" class="col-sm-3 col-form-label">Zip</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              restaurantLocationForm.submitted && zipcode.invalid
+            "
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="zip"
+              name="UserName"
+              placeholder="Enter Zip"
+              [(ngModel)]="restaurantLocation.zip"
+              required
+              #zipcode="ngModel"
+            />
+            <div
+              class="error-field"
+              *ngIf="
+                restaurantLocationForm.submitted && zipcode.errors?.required
+              "
+            >
+              Zipcode is required
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+          <label for="map" class="col-sm-3 col-form-label">Map</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="map"
+              name="Map"
+              placeholder="Enter Map"
+            />
+          </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label for="SortNo" class="col-sm-9 col-form-label">Sort No</label>
+          <div class="col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              style="text-align: right"
+              id="SortNo"
+              name="SortNo"
+              placeholder="No."
+              [(ngModel)]="restaurantLocation.SortNo"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="checkActive"
+                name="checkActive"
+                [(ngModel)]="restaurantLocation.Active"
+                [checked]="restaurantLocation.Active ? 'true' : 'false'"
+              />
+              <label class="custom-control-label" for="checkActive"
+                >Active</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="float-left mr-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="reset" class="btn btn-danger" (click)="clearData()">
+              <i class="feather icon-rotate-ccw" style="padding-right: 10px"></i
+              >Clear
+            </button>
+          </div>
+        </div>
+        <div class="float-right ml-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="submit" class="btn btn-secondary">
+              <i
+                class="feather icon-check-circle"
+                style="padding-right: 10px"
+              ></i
+              >Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-ui-modal>
+
+<app-alert type="success" dismiss="true" *ngIf="isSuccess">{{
+  successMessage
+}}</app-alert>
+<app-alert type="danger" dismiss="true" *ngIf="isFailed">{{
+  failMessage
+}}</app-alert>
+
+<!-- delete confirmation modal -->
+<app-ui-modal #confirmDelete [containerClick]="false" class="confirm-box">
+  <div class="app-modal-header">
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="confirmDelete.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body text-center">
+    <label class="confirm-text"
+      >Are you sure want to delete restaurant location of
+      {{ deleteRestaurantData?.Address }}</label
+    >
+  </div>
+  <div class="app-modal-footer border-0" style="padding: 1rem">
+    <button
+      type="button"
+      class="btn btn-secondary btn-confirm-close"
+      data-dismiss="modal"
+      (click)="confirmDelete.hide()"
+    >
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteRestaurant(deleteRestaurantData); confirmDelete.hide()"
+    >
+      Yes
+    </button>
+  </div>
+</app-ui-modal>

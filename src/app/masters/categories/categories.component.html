@@ -1,0 +1,199 @@
+<div class="row">
+  <div class="col-xl-12" style="display: flex; justify-content: space-between">
+    <div class="col-xl-4 p-l-0">
+      <app-card [hidHeader]="true">
+        <div class="custom-card">
+          <div class="count-items">
+            <span>Total Categories </span>
+            <h3>{{ categoryData?.total_categories }}</h3>
+          </div>
+          <div class="icon">
+            <i class="feather icon-package"></i>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  <!-- conversion-section end -->
+
+  <div class="col-md-12 custom-container">
+    <div class="form-group custom-search">
+      <input
+        type="text"
+        class="search form-control"
+        placeholder="Search by Category"
+        (keyup)="searchData($event)"
+      />
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary float-right m-b-10"
+      data-toggle="modal"
+      (click)="addCategoryModal.show()"
+    >
+      Add Category
+    </button>
+    <!-- add restaurant modal -->
+  </div>
+
+  <!-- customer overview start -->
+  <div class="col-md-12">
+    <app-card cardTitle="" cardClass="table-card" blockClass="p-0">
+      <!-- <perfect-scrollbar [style.max-height]="'362px'"> -->
+      <table class="table table-hover m-b-0">
+        <thead>
+          <tr>
+            <th><span>Category</span></th>
+            <th><span>Sort No</span></th>
+            <th class="text-center"><span>Action</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of tableData
+                | slice: (defaultPage - 1) * pageSize:defaultPage * pageSize
+            "
+          >
+            <td>
+              <span> {{ item?.category }} </span>
+            </td>
+            <td>
+              <span> {{ item?.sort_no }} </span>
+            </td>
+            <td class="text-center">
+              <div class="action-cta">
+                <button
+                  type="button"
+                  class="btn btn-icon m-2 btn-outline-warning"
+                >
+                  <i class="feather icon-eye"></i>
+                </button>
+                <button type="button" class="btn btn-icon m-2 btn-outline-info">
+                  <i class="feather icon-edit"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-icon m-2 btn-outline-danger"
+                >
+                  <i class="feather icon-trash-2"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </perfect-scrollbar> -->
+      <hr />
+      <div class="horizontal-scroll p-10">
+        <ngb-pagination
+          class="d-flex justify-content-end"
+          [collectionSize]="tableData.length"
+          [(page)]="defaultPage"
+          [pageSize]="pageSize"
+          [rotate]="false"
+          [boundaryLinks]="true"
+        ></ngb-pagination>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+<!-- add menu modal -->
+<app-ui-modal #addCategoryModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Add Category</h5>
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      style="outline: none"
+      aria-label="Close"
+      (click)="addCategoryModal.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body">
+    <div class="col-md-12">
+      <form action="">
+        <div class="form-group row">
+          <label for="restaurant" class="col-sm-3 col-form-label"
+            >Category</label
+          >
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              id="restaurant"
+              name="UserName"
+              placeholder="Enter Category"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="SortNo" class="col-sm-10 col-form-label">Sort No</label>
+          <div class="col-sm-2">
+            <input
+              type="number"
+              class="form-control"
+              style="text-align: right"
+              id="SortNo"
+              name="SortNo"
+              placeholder="No."
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="checkActive"
+                name="checkActive"
+                checked
+              />
+              <label class="custom-control-label" for="checkActive"
+                >Active</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="float-left ml-1">
+          <div class="form-group row">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="addCategoryModal.hide()"
+            >
+              <i
+                class="feather icon-check-circle"
+                style="padding-right: 10px"
+              ></i
+              >Save
+            </button>
+          </div>
+        </div>
+
+        <div class="float-right mr-1">
+          <div class="form-group row">
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="addCategoryModal.hide()"
+            >
+              <i class="feather icon-slash" style="padding-right: 10px"></i
+              >Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-ui-modal>

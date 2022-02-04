@@ -1,0 +1,163 @@
+
+<h5 class="card-title">Ingredient Catogory</h5>
+<div class="row">
+    <div class="col-md-6">
+        <!-- <app-card [hidHeader]="true"> -->
+      <form action="">
+        <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label"> Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="name" name="UserName"
+                    placeholder="Enter Name">
+            </div>
+        </div>
+
+
+          <div class="form-group row">
+            <label for="txtCategory" class="col-sm-3 col-form-label">Ingredients</label>
+            <div class="col-sm-9">
+                <!-- <input type="checkbox" id="ing"><label for="ing">ing1</label>
+                <input type="checkbox" id="ing2"><label for="ing2">ing2</label>
+                <input type="checkbox" id="ing3"><label for="ing"3>ing3</label>
+                <input type="checkbox" id="ing4"><label for="ing">4ing4</label> -->
+                <select class="form-control" id="txtCategory" name="txtCategory" placeholder="Select ingredients">
+                  <option value=""><label for="one"><input type="checkbox" id="one">one</label></option>
+                  <option value=""><label for="one"><input type="checkbox" id="one">two</label></option>
+                  <option value=""><label for="one"><input type="checkbox" id="one">three</label></option>
+                </select>
+            </div>
+        </div>
+
+          <div class="form-group row">
+            <label for="SortNo" class="col-sm-10 col-form-label">Sort No</label>
+            <div class="col-sm-2">
+              <input type="number" class="form-control" style="text-align: right;" id="SortNo" name="SortNo" placeholder="No.">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="checkActive" name="checkActive">
+              <label class="custom-control-label" for="checkActive">Active</label>
+            </div>
+            </div>
+            </div>
+
+            <div class="float-left ml-1">
+                <div class="form-group row">
+                    <button type="button" class="btn btn-secondary"><i class="feather icon-check-circle"
+                            style="padding-right: 10px;"></i>Save</button>
+                </div>
+            </div>
+
+            <div class="float-right mr-1">
+                <div class="form-group row">
+                    <button type="button" class="btn btn-danger"><i class="feather icon-slash"
+                            style="padding-right: 10px;"></i>Delete</button>
+                </div>
+            </div>
+
+      </form>
+      <!-- </app-card> -->
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- <app-card [hidHeader]="true"> -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Ingredients</th>
+                            <th style="text-align: center">Sort No</th>
+                            <th>Active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Saravana Bhavan</td>
+                            <td>-</td>
+                            <td style="text-align:center">11</td>
+                            <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                            <td>
+                                <div class="btn-group mb-1 mr-1" ngbDropdown >
+                                    <button class="btn btn-secondary" ngbDropdownToggle type="button">Action</button>
+                                    <div ngbDropdownMenu>
+                                        <a class="dropdown-item" href="javascript:">New</a>
+                                        <a class="dropdown-item" href="javascript:">Edit</a>
+                                        <a class="dropdown-item" href="javascript:">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td>Arya Bhavan Bhavan</td>
+                            <td>-</td>
+                            <td style="text-align:center">12</td>
+                            <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                            <td>
+                                <div class="btn-group mb-1 mr-1" ngbDropdown >
+                                    <button class="btn btn-secondary" ngbDropdownToggle type="button">Action</button>
+                                    <div ngbDropdownMenu>
+                                        <a class="dropdown-item" href="javascript:">New</a>
+                                        <a class="dropdown-item" href="javascript:">Edit</a>
+                                        <a class="dropdown-item" href="javascript:">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                           
+                        <tr>
+                            <td>3</td>
+                            <td>Faruuzi</td>
+                            <td>-</td>
+                            <td style="text-align:center">13</td>
+                            <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                            <td>
+                                <div class="btn-group mb-1 mr-1" ngbDropdown >
+                                    <button class="btn btn-secondary" ngbDropdownToggle type="button">Action</button>
+                                    <div ngbDropdownMenu>
+                                        <a class="dropdown-item" href="javascript:">New</a>
+                                        <a class="dropdown-item" href="javascript:">Edit</a>
+                                        <a class="dropdown-item" href="javascript:">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td>Sangeeetha</td>
+                            <td>-</td>
+                            <td style="text-align:center">14</td>
+                            <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                            <td>
+                                <div class="btn-group mb-1 mr-1" ngbDropdown >
+                                    <button class="btn btn-secondary" ngbDropdownToggle type="button">Action</button>
+                                    <div ngbDropdownMenu>
+                                        <a class="dropdown-item" href="javascript:">New</a>
+                                        <a class="dropdown-item" href="javascript:">Edit</a>
+                                        <a class="dropdown-item" href="javascript:">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+
+                    </tbody>
+                </table>
+            
+            </div>
+        <!-- </app-card> -->
+    </div>
+</div>

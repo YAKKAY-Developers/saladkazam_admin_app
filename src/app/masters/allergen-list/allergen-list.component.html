@@ -1,0 +1,370 @@
+<div class="row">
+  <div class="col-xl-12" style="display: flex; justify-content: space-between">
+    <div class="col-xl-4 p-l-0">
+      <app-card [hidHeader]="true">
+        <div class="custom-card">
+          <div class="count-items">
+            <span>Total Allergens </span>
+            <h3>{{ tableData.length }}</h3>
+          </div>
+          <div class="icon">
+            <i class="feather icon-feather"></i>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+  <div class="col-md-12 custom-container">
+    <div class="form-group custom-search">
+      <input
+        type="text"
+        class="search form-control"
+        placeholder="Search by name"
+        (keyup)="searchData($event)"
+      />
+    </div>
+    <!-- <button
+      type="button"
+      class="btn btn-primary float-right m-b-10"
+      data-toggle="modal"
+      #addRestaurantBtn
+      (click)="addMenuModal.show(); clearData()"
+    >
+      Add Allergen
+    </button> -->
+    <!-- add restaurant modal -->
+  </div>
+
+  <!-- customer overview start -->
+  <div class="col-md-12">
+    <app-card cardTitle="" cardClass="table-card" blockClass="p-0">
+      <!-- <perfect-scrollbar [style.max-height]="'362px'"> -->
+      <table class="table table-hover m-b-0">
+        <thead>
+          <tr>
+            <th>
+              <span
+                style="cursor: pointer"
+                class="d-flex; align-items: center;"
+                (click)="reOrder()"
+                >Item Name
+                <i class="fas fa-arrow-up ml-1" style="font-size: 14px"></i
+              ></span>
+            </th>
+            <th>
+              <span
+                style="cursor: pointer"
+                class="d-flex; align-items: center;"
+                (click)="changeOrder()"
+                >Type
+                <i
+                  class="fas fa-arrow-up ml-1"
+                  style="font-size: 14px"
+                  [class.rotate]="isOrder"
+                ></i>
+              </span>
+            </th>
+            <th><span>Ingredients</span></th>
+            <th style="text-align: center"><span>Status</span></th>
+            <!-- <th class="text-center"><span>Action</span></th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of tableData
+                | slice: (defaultPage - 1) * pageSize:defaultPage * pageSize
+            "
+          >
+            <td>
+              <a>{{ item?.IngredientName }}</a>
+            </td>
+            <td>
+              <span> {{ item?.Type[0] }} </span>
+            </td>
+            <td>
+              <span>
+                {{ item?.IngredientName }}
+              </span>
+            </td>
+            <td>
+              <span class="justify-content-center">
+                <i class="fas fa-check" *ngIf="item?.Active"></i>
+                <i class="fas fa-times" *ngIf="!item?.Active"></i>
+              </span>
+            </td>
+            <!-- <td class="text-center">
+              <div
+                class="btn-group mb-1 mr-1"
+                ngbDropdown
+                [placement]="'bottom-left'"
+              >
+                <button
+                  class="btn btn-secondary"
+                  ngbDropdownToggle
+                  type="button"
+                >
+                  Action
+                </button>
+                <div ngbDropdownMenu>
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="
+                      addMenuModal.show(); getData(item?.AllergenID, 'view')
+                    "
+                    >View</a
+                  >
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="
+                      addMenuModal.show(); getData(item?.AllergenID, 'edit')
+                    "
+                    >Edit</a
+                  >
+                  <a
+                    class="dropdown-item dropdown-item12"
+                    (click)="deleteRestaurantData = item; confirmDelete.show()"
+                  >
+                    Delete</a
+                  >
+                </div>
+              </div>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+      <!-- </perfect-scrollbar> -->
+
+      <!-- Loader -->
+      <p class="text-center font-weight-bolder m-50" *ngIf="loader">
+        Loading...
+      </p>
+      <p
+        class="text-center font-weight-bolder m-50"
+        *ngIf="!tableData.length && !loader"
+      >
+        No allergen added yet
+      </p>
+
+      <!-- </perfect-scrollbar> -->
+      <hr *ngIf="!loader" />
+      <div class="horizontal-scroll p-10">
+        <ngb-pagination
+          class="d-flex justify-content-end"
+          [collectionSize]="tableData.length"
+          [(page)]="defaultPage"
+          [pageSize]="pageSize"
+          [rotate]="false"
+          [boundaryLinks]="true"
+        ></ngb-pagination>
+      </div>
+    </app-card>
+  </div>
+  <!-- customer overview start -->
+  <!-- <div class="horizontal-scroll"><ngb-pagination [collectionSize]="120" [(page)]="defaultPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination></div> -->
+</div>
+
+<!-- add menu modal -->
+<app-ui-modal #addMenuModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">
+      {{ isEdit ? "Edit" : viewOnly ? "" : "Add" }} Allergen
+    </h5>
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      style="outline: none"
+      aria-label="Close"
+      (click)="addMenuModal.hide(); resetData()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body">
+    <div class="col-md-12">
+      <form
+        #allergenForm="ngForm"
+        (ngSubmit)="allergenForm.form.valid && SaveEdit()"
+      >
+        <div class="form-group row">
+          <label for="menu" class="col-sm-3 col-form-label"
+            >Allergen Name</label
+          >
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="allergenForm.submitted && allergenName.invalid"
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="menu"
+              name="name"
+              placeholder="Enter Allergen"
+              required
+              autocomplete="off"
+              [(ngModel)]="allergenData.AllergenName"
+              #allergenName="ngModel"
+            />
+            <div
+              class="error-field"
+              *ngIf="allergenForm.submitted && allergenName.errors?.required"
+            >
+              Allergen name is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="city" class="col-sm-3 col-form-label">Type</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="allergenForm.submitted && menuType.invalid"
+          >
+            <select
+              class="custom-select"
+              name="pageSize"
+              [(ngModel)]="allergenData.InggroupID"
+              required
+              (change)="getIngredientLists($event.target.value)"
+              #menuType="ngModel"
+            >
+              <option>select type</option>
+              <option
+                *ngFor="let cat of foodCategoryList"
+                value="{{ cat.InggroupID }}"
+              >
+                {{ cat.Desc }}
+              </option>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="allergenForm.submitted && menuType.errors?.required"
+            >
+              Allergen type is required
+            </div>
+          </div>
+        </div>
+
+        <!-- pick list component -->
+        <pick-list
+          [ingredientLists]="ingredientLists"
+          (selectedIngredients)="ingredientChoosen($event)"
+          [selectedIngredientLists]="selectedSourceIngredients"
+        ></pick-list>
+
+        <div class="is-invalid">
+          <div
+            class="error-field mb-4"
+            *ngIf="allergenForm.submitted && !ingredientChoosenList.length"
+          >
+            Please select atleast one ingredient
+          </div>
+        </div>
+
+        <div class="form-group row d-none">
+          <label for="SortNo" class="col-sm-9 col-form-label">Sort No</label>
+          <div class="col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              style="text-align: right"
+              id="SortNo"
+              name="SortNo"
+              placeholder="No."
+              [(ngModel)]="allergenData.SortNo"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="checkActive"
+                name="checkActive"
+                [(ngModel)]="allergenData.Active"
+                [checked]="allergenData.Active ? true : false"
+              />
+              <label class="custom-control-label" for="checkActive"
+                >Active</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="float-left mr-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="reset" class="btn btn-danger" (click)="clearData()">
+              <i class="feather icon-rotate-ccw" style="padding-right: 10px"></i
+              >Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="float-right ml-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="submit" class="btn btn-secondary">
+              <i
+                class="feather icon-check-circle"
+                style="padding-right: 10px"
+              ></i
+              >Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-ui-modal>
+
+<app-alert
+  [type]="isEdit ? 'info' : 'success'"
+  dismiss="true"
+  *ngIf="isSuccess"
+  >{{ successMessage }}</app-alert
+>
+<app-alert type="danger" dismiss="true" *ngIf="isFailed">{{
+  failMessage
+}}</app-alert>
+
+<!-- delete confirmation modal -->
+<app-ui-modal #confirmDelete [containerClick]="false" class="confirm-box">
+  <div class="app-modal-header">
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="confirmDelete.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body text-center">
+    <label class="confirm-text"
+      >Are you sure want to delete
+      {{ deleteRestaurantData?.AllergenName }}</label
+    >
+  </div>
+  <div class="app-modal-footer border-0" style="padding: 1rem">
+    <button
+      type="button"
+      class="btn btn-primary btn-confirm-close"
+      data-dismiss="modal"
+      (click)="confirmDelete.hide()"
+    >
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteMenu(deleteRestaurantData); confirmDelete.hide()"
+    >
+      Yes
+    </button>
+  </div>
+</app-ui-modal>

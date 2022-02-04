@@ -1,0 +1,320 @@
+<div class="content-wrapper" [class.ml-0]="accessType === 'T'">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-8 mt-5">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Entry</h3>
+              <a href="#" class="home-icon d-none"
+                ><i class="fa fa-home" aria-hidden="true"></i
+              ></a>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              #userForm="ngForm"
+              (ngSubmit)="userForm.form.valid && SaveEdit()"
+              novalidate
+            >
+              <div class="card-body">
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >Group</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && usergroup.invalid"
+                  >
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      [(ngModel)]="userDetails.AllotedCompany"
+                      name="group"
+                      #usergroup="ngModel"
+                      required
+                      [disabled]="userId && userType === 'T'"
+                    >
+                      <option value="">Select Group</option>
+                      <option
+                        [value]="group.CompanyID"
+                        *ngFor="let group of groups"
+                      >
+                        {{ group.CompanyName }}
+                      </option>
+                    </select>
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && usergroup.errors?.required"
+                    >
+                      Group is required
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >{{ UserDisplay }}</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && username.invalid"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Username"
+                      name="Username"
+                      #username="ngModel"
+                      [class.is-invalid]="
+                        userForm.submitted && username.invalid
+                      "
+                      [(ngModel)]="userDetails.UserName"
+                      required
+                    />
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && username.errors?.required"
+                    >
+                      Username name is required
+                    </div>
+                  </div>
+                </div> -->
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >First Name</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && firstname.invalid"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      placeholder="Enter First Name"
+                      name="firstname"
+                      #firstname="ngModel"
+                      [class.is-invalid]="
+                        userForm.submitted && firstname.invalid
+                      "
+                      [(ngModel)]="userDetails.FirstName"
+                      required
+                      autocomplete="off"
+                    />
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && firstname.errors?.required"
+                    >
+                      First name is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >Last Name</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && lastname.invalid"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      placeholder="Enter Last Name"
+                      name="lastname"
+                      #lastname="ngModel"
+                      [class.is-invalid]="
+                        userForm.submitted && lastname.invalid
+                      "
+                      [(ngModel)]="userDetails.LastName"
+                      required
+                      autocomplete="off"
+                    />
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && lastname.errors?.required"
+                    >
+                      Lastname name is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >Email</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && email.invalid"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      placeholder="Enter Email"
+                      #email="ngModel"
+                      name="email"
+                      [(ngModel)]="userDetails.Email"
+                      email
+                      required
+                      (blur)="checkUser()"
+                      autocomplete="off"
+                    />
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && email.errors?.required"
+                    >
+                      Email is required
+                    </div>
+                    <div
+                      *ngIf="userForm.submitted && email.errors?.email"
+                      class="error-field"
+                    >
+                      Email must be a valid email address
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >Password</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="userForm.submitted && password.invalid"
+                  >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      name="password"
+                      placeholder="Enter Password"
+                      [(ngModel)]="userDetails.Passwd"
+                      #password="ngModel"
+                      minlength="6"
+                      required
+                      autocomplete="off"
+                    />
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && password.errors?.required"
+                    >
+                      Password is required
+                    </div>
+                    <div
+                      *ngIf="userForm.submitted && password.errors?.minlength"
+                      class="error-field"
+                    >
+                      Password must be at least 6 characters
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row" style="display: none">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >User Type</label
+                  >
+                  <div class="input-group col-sm-9">
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      disabled
+                    >
+                      <option selected="selected">Coach</option>
+                      <option>Coach</option>
+                      <option>Admin</option>
+                      <option>Client</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label
+                    for="exampleInputEmail1"
+                    class="col-sm-3 col-form-label"
+                    >Gender</label
+                  >
+                  <div
+                    class="input-group col-sm-9"
+                    [class.is-invalid]="
+                      userForm.submitted && usergender.invalid
+                    "
+                  >
+                    <select
+                      class="form-control select2"
+                      style="width: 100%"
+                      [(ngModel)]="userDetails.Gender"
+                      name="gender"
+                      #usergender="ngModel"
+                      required
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div
+                      class="error-field"
+                      *ngIf="userForm.submitted && usergender.errors?.required"
+                    >
+                      Gender is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="loggedInUserId !== userId">
+                  <div
+                    class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success"
+                  >
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="custActive"
+                      name="custActive"
+                      [disabled]
+                      [(ngModel)]="isActive"
+                    />
+                    <label class="custom-control-label" for="custActive"
+                      >Active</label
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="float-left ml-1">
+                    <button label="Save" class="btn btn-primary">Save</button>
+                  </div>
+
+                  <div class="float-right mr-1 hide">
+                    <button type="reset" class="btn btn-warning reset">
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<p-toast></p-toast>

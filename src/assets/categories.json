@@ -1,0 +1,36 @@
+{
+   
+    "total_categories": 6,
+    "items": [
+        {
+            "category": "Main Course",
+            "id": 1,
+            "sort_no": 1
+        },
+        {
+            "category": "Condiments",
+            "id": 2,
+            "sort_no": 2
+        },
+        {
+            "category": "Salad",
+            "id": 3,
+            "sort_no": 3
+        },
+        {
+            "category": "Appetizer",
+            "id": 4,
+            "sort_no": 4
+        },
+        {
+            "category": "Sauces",
+            "id": 5,
+            "sort_no": 5
+        },
+        {
+            "category": "Breakfast",
+            "id": 6,
+            "sort_no": 6
+        }
+    ]
+}

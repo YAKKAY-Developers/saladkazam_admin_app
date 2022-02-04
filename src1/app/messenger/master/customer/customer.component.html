@@ -1,0 +1,341 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header"></div>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Create Company / Group</h3>
+              <a href="#" class="home-icon"
+                ><i class="fa fa-home" aria-hidden="true"></i
+              ></a>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              #customerForm="ngForm"
+              (ngSubmit)="customerForm.form.valid && SaveEdit()"
+              novalidate
+            >
+              <div class="card-body row">
+                <div class="col-md-5">
+                  <div
+                    class="form-group row"
+                    [class.is-invalid]="
+                      customerForm.submitted && companyName.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >Company / Group</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter Company/Group"
+                        name="company"
+                        #companyName="ngModel"
+                        [(ngModel)]="company.CompanyName"
+                        required
+                        autocomplete="off"
+                      />
+                      <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && companyName.errors?.required
+                        "
+                      >
+                        Company name is required
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && street.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >Street</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter Street"
+                        name="street"
+                        [(ngModel)]="company.street"
+                        #street="ngModel"
+                        autocomplete="off"
+                      />
+                      <!--  <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && street.errors?.required
+                        "
+                      >
+                        Street is required
+                      </div> -->
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && address.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >Address</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter Address"
+                        name="address"
+                        [(ngModel)]="company.Address"
+                        #address="ngModel"
+                        autocomplete="off"
+                      />
+                      <!-- <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && address.errors?.required
+                        "
+                      >
+                        Address is required
+                      </div> -->
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="customerForm.submitted && city.invalid"
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >City</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter City"
+                        name="city"
+                        [(ngModel)]="company.city"
+                        #city="ngModel"
+                        autocomplete="off"
+                      />
+                      <!--  <div
+                        class="error-field"
+                        *ngIf="customerForm.submitted && city.errors?.required"
+                      >
+                        City is required
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="offset-md-1 col-md-5">
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && contactno.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                    >
+                      Mobile</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter Mobile"
+                        name="mobile"
+                        #contactno="ngModel"
+                        [(ngModel)]="company.contactno"
+                        minlength="10"
+                        (keypress)="numberOnly($event)"
+                        autocomplete="off"
+                      />
+                      <!-- <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && contactno.errors?.required
+                        "
+                      >
+                        Mobile number is required
+                      </div>
+                      <div
+                        *ngIf="
+                          customerForm.submitted && contactno.errors?.minlength
+                        "
+                        class="error-field"
+                      >
+                        Mobile must be 10 degit
+                      </div> -->
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && zipcode.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >Zipcode</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter Zipcode"
+                        name="zipcode"
+                        [(ngModel)]="company.zipcode"
+                        #zipcode="ngModel"
+                        (keypress)="numberOnly($event)"
+                        autocomplete="off"
+                      />
+                      <!--  <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && zipcode.errors?.required
+                        "
+                      >
+                        Zipcode is required
+                      </div> -->
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && zipcode.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputEmail1"
+                      class="col-sm-3 col-form-label"
+                      >Email</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="exampleInputEmail1"
+                        placeholder="Enter email"
+                        name="email"
+                        [(ngModel)]="company.email"
+                        #email="ngModel"
+                        email
+                        autocomplete="off"
+                      />
+                      <!-- <div
+                        class="error-field"
+                        *ngIf="customerForm.submitted && email.errors?.required"
+                      >
+                        Email is required
+                      </div>
+                      <div
+                        *ngIf="customerForm.submitted && email.errors?.email"
+                        class="error-field"
+                      >
+                        Email must be a valid email address
+                      </div> -->
+                    </div>
+                  </div>
+                  <div
+                    class="form-group row"
+                    [class._is-invalid]="
+                      customerForm.submitted && website.invalid
+                    "
+                  >
+                    <label
+                      for="exampleInputPassword1"
+                      class="col-sm-3 col-form-label"
+                      >Website</label
+                    >
+                    <div class="col-sm-9">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleInputPassword1"
+                        name="website"
+                        placeholder="Enter Website"
+                        [(ngModel)]="company.website"
+                        #website="ngModel"
+                        autocomplete="off"
+                      />
+                      <!--  <div
+                        class="error-field"
+                        *ngIf="
+                          customerForm.submitted && website.errors?.required
+                        "
+                      >
+                        Website is required
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12"></div>
+                <div class="form-group">
+                  <div
+                    class="
+                      custom-control
+                      custom-switch
+                      custom-switch-off-danger
+                      custom-switch-on-success
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="custActive"
+                      name="active"
+                      [(ngModel)]="company.Active"
+                      autocomplete="off"
+                    />
+                    <label class="custom-control-label" for="custActive"
+                      >Active</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="form-group action-cta">
+                <div class="float-left ml-1">
+                  <button class="btn btn-primary">Save</button>
+                  <!-- /.info-box -->
+                </div>
+                <div class="float-right mr-1 hide">
+                  <button type="reset" class="btn btn-warning reset">
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<p-toast></p-toast>

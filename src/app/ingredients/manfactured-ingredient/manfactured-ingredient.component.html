@@ -1,0 +1,402 @@
+<div class="row">
+  <div class="col-md-12 custom-container">
+    <div class="form-group custom-search">
+      <input
+        type="text"
+        class="search form-control"
+        placeholder="Search by ingredient"
+        (keyup)="searchData($event)"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-primary float-right m-b-10"
+      data-toggle="modal"
+      (click)="addManfacturedIngredientModal.show(); clearData()"
+    >
+      Add Manufactured Ingredient
+    </button>
+    <!-- add restaurant modal -->
+  </div>
+
+  <!-- customer overview start -->
+  <div class="col-md-12">
+    <app-card cardTitle="" cardClass="table-card" blockClass="p-0">
+      <!-- <perfect-scrollbar [style.max-height]="'362px'"> -->
+      <table class="table table-hover m-b-0">
+        <thead>
+          <tr>
+            <th><span>Ingredient</span></th>
+            <th><span>Category</span></th>
+            <th><span>Type</span></th>
+            <th><span>Ingredients</span></th>
+            <th class="text-center"><span>Action</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let item of tableData
+                | slice: (defaultPage - 1) * pageSize:defaultPage * pageSize
+            "
+          >
+            <td>
+              <a>{{ item?.IngredientName }}</a>
+            </td>
+            <td>
+              <span>
+                {{
+                  item?.IngredientType === 1
+                    ? "Single Source"
+                    : item?.IngredientType === 2
+                    ? "Prepared Ingredient"
+                    : "Manufactured Ingredient"
+                }}
+              </span>
+            </td>
+            <td>
+              <span> {{ item?.CategoryName[0] }}</span>
+            </td>
+            <td>
+              <span>
+                <ng-container
+                  *ngFor="let ingredient of item.childs; let i = index"
+                  >{{ ingredient.IngName[0]
+                  }}<ng-container *ngIf="i < item.childs.length - 1"
+                    >,
+                  </ng-container></ng-container
+                >
+              </span>
+            </td>
+            <td class="text-center">
+              <div class="action-cta">
+                <button
+                  type="button"
+                  class="btn btn-icon m-2 btn-outline-warning"
+                  (click)="
+                    getData(item.IngredientID, 'view');
+                    addManfacturedIngredientModal.show()
+                  "
+                >
+                  <i class="feather icon-eye"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-icon m-2 btn-outline-info"
+                  (click)="
+                    getData(item.IngredientID, 'edit');
+                    addManfacturedIngredientModal.show()
+                  "
+                >
+                  <i class="feather icon-edit"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-icon m-2 btn-outline-danger"
+                  (click)="deletingData = item; confirmDelete.show()"
+                >
+                  <i class="feather icon-trash-2"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </perfect-scrollbar> -->
+      <!-- Loader -->
+      <p class="text-center font-weight-bolder m-50" *ngIf="loader">
+        Loading...
+      </p>
+      <p
+        class="text-center font-weight-bolder m-50"
+        *ngIf="!tableData.length && !loader"
+      >
+        No Manufactured ingredient added yet
+      </p>
+
+      <!-- </perfect-scrollbar> -->
+      <hr *ngIf="!loader" />
+      <div class="horizontal-scroll p-10">
+        <ngb-pagination
+          class="d-flex justify-content-end"
+          [collectionSize]="tableData.length"
+          [(page)]="defaultPage"
+          [pageSize]="pageSize"
+          [rotate]="false"
+          [boundaryLinks]="true"
+        ></ngb-pagination>
+      </div>
+    </app-card>
+  </div>
+  <!-- customer overview start -->
+</div>
+
+<app-ui-modal #addManfacturedIngredientModal [containerClick]="false">
+  <div class="app-modal-header">
+    <h5 class="modal-title">
+      {{ isEdit ? "Edit" : viewOnly ? "" : "Add" }} Manufactured Ingredient
+    </h5>
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      style="outline: none"
+      aria-label="Close"
+      (click)="addManfacturedIngredientModal.hide(); resetData()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body">
+    <div class="col-md-12">
+      <form
+        #ingredientForm="ngForm"
+        (ngSubmit)="ingredientForm.form.valid && SaveEdit()"
+      >
+        <div class="form-group row">
+          <label for="restaurant" class="col-sm-3 col-form-label"
+            >Ingredient</label
+          >
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              (ingredientForm.submitted && ingredientName.invalid) || isExist
+            "
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="restaurant"
+              name="UserName"
+              placeholder="Enter Ingredient"
+              required
+              #ingredientName="ngModel"
+              [(ngModel)]="ingredientData.IngredientName"
+              autocomplete="off"
+            />
+            <div
+              class="error-field"
+              *ngIf="
+                ingredientForm.submitted && ingredientName.errors?.required
+              "
+            >
+              Ingredient name is required
+            </div>
+            <div class="error-field" *ngIf="isExist">
+              Ingredient name already exist
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row d-none">
+          <label for="description" class="col-sm-3 col-form-label"
+            >Description</label
+          >
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              ingredientForm.submitted && ingredientName.invalid
+            "
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="description"
+              name="UserName"
+              placeholder="Enter Description"
+              [(ngModel)]="ingredientData.Description"
+              autocomplete="off"
+              #description="ngModel"
+            />
+            <div
+              class="error-field"
+              *ngIf="ingredientForm.submitted && description.errors?.required"
+            >
+              Description is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row d-none">
+          <label for="city" class="col-sm-3 col-form-label">Category</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="ingredientForm.submitted && category.invalid"
+          >
+            <select
+              class="custom-select"
+              name="category"
+              [(ngModel)]="ingredientData.InggroupID"
+              #category="ngModel"
+              (change)="getIngredientLists($event.target.value)"
+            >
+              <option>Select Category</option>
+              <option
+                *ngFor="let type of foodTypes"
+                value="{{ type.InggroupID }}"
+              >
+                {{ type.Desc }}
+              </option>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="ingredientForm.submitted && category.errors?.required"
+            >
+              Category is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row d-none">
+          <label for="city" class="col-sm-3 col-form-label">Type</label>
+          <div
+            class="col-sm-9"
+            [class.is-invalid]="
+              ingredientForm.submitted && ingredientType.invalid
+            "
+          >
+            <select
+              class="custom-select"
+              name="type"
+              [(ngModel)]="ingredientData.IngredientType"
+              #ingredientType="ngModel"
+            >
+              <option value="3" selected>Prepared Ingredient</option>
+            </select>
+            <div
+              class="error-field"
+              *ngIf="
+                ingredientForm.submitted && ingredientType.errors?.required
+              "
+            >
+              Type is required
+            </div>
+          </div>
+        </div>
+
+        <ng-container>
+          <pick-list
+            [ingredientLists]="singleSourceIngredients"
+            [selectedIngredientLists]="selectedSourceIngredients"
+            (selectedIngredients)="ingredientChoosen($event)"
+          ></pick-list>
+
+          <div class="is-invalid">
+            <div
+              class="error-field mb-4"
+              *ngIf="
+                ingredientForm.submitted && !selectedSourceIngredients.length
+              "
+            >
+              Please select atleast one ingredient
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="form-group row d-none">
+          <label for="SortNo" class="col-sm-9 col-form-label">Sort No</label>
+          <div class="col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              style="text-align: right"
+              id="SortNo"
+              name="SortNo"
+              placeholder="No."
+              [(ngModel)]="ingredientData.SortNo"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10"></div>
+          <div class="col-sm-2">
+            <div class="custom-control custom-switch">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="checkActive"
+                name="checkActive"
+                [(ngModel)]="ingredientData.Active"
+                [checked]="ingredientData.Active ? true : false"
+              />
+              <label class="custom-control-label" for="checkActive"
+                >Active</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="float-left mr-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="reset" class="btn btn-danger" (click)="clearData()">
+              <i class="feather icon-rotate-ccw" style="padding-right: 10px"></i
+              >Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="float-right ml-1" [class.d-none]="viewOnly">
+          <div class="form-group row">
+            <button type="submit" class="btn btn-secondary">
+              <i
+                class="feather icon-check-circle"
+                style="padding-right: 10px"
+              ></i
+              >Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</app-ui-modal>
+
+<app-alert
+  [type]="isEdit ? 'info' : 'success'"
+  dismiss="true"
+  *ngIf="isSuccess"
+  >{{ successMessage }}</app-alert
+>
+<app-alert type="danger" dismiss="true" *ngIf="isFailed">{{
+  failMessage
+}}</app-alert>
+
+<!-- delete confirmation modal -->
+<app-ui-modal #confirmDelete [containerClick]="false" class="confirm-box">
+  <div class="app-modal-header">
+    <button
+      type="button"
+      class="close basic-close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="confirmDelete.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="app-modal-body text-center">
+    <label class="confirm-text"
+      >Are you sure want to delete {{ deletingData?.IngredientName }}</label
+    >
+  </div>
+  <div class="app-modal-footer border-0" style="padding: 1rem">
+    <button
+      type="button"
+      class="btn btn-primary btn-confirm-close"
+      data-dismiss="modal"
+      (click)="confirmDelete.hide()"
+    >
+      No
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="deleteIngredient(deletingData); confirmDelete.hide()"
+    >
+      Yes
+    </button>
+  </div>
+</app-ui-modal>

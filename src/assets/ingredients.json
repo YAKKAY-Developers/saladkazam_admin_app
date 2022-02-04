@@ -1,0 +1,65 @@
+{
+    "restaurant_name": "Chick-fil-a",
+    "logo": "assets/images/great-american-restaurants-office.jpg",
+    "locations": 10,
+    "menu_items": 20,
+    "prepared_ingredients": 30,
+    "items": [
+        {
+            "ingredient": "Chicken Patty",
+            "type": "Food",
+            "category": "Prepared Ingredient",
+            "ingredients": "Chicken, Salt, Sugar, Spices, Parparika",
+            "id":1
+        },
+        {
+            "ingredient": "Spicy chicken patty",
+            "type": "Food",
+            "category": "Prepared Ingredient",
+            "ingredients": "Chicken, Salt, Sugar, Spices, Parparika",
+            "id":2
+        },
+        {
+            "ingredient": "Lettuce",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "Romaine Lettuce",
+            "id":3
+        },
+        {
+            "ingredient": "Onion",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "White onion",
+            "id":4
+        },
+        {
+            "ingredient": "Strawberry",
+            "type": "Fruit",
+            "category": "Single-source",
+            "ingredients": "Red Strawberry",
+            "id":5
+        },
+        {
+            "ingredient": "Tomato",
+            "type": "Fruit",
+            "category": "Single-source",
+            "ingredients": "Romaine Lettuce",
+            "id":6
+        },
+        {
+            "ingredient": "Mushroom",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "",
+            "id":7
+        },
+        {
+            "ingredient": "Sun flower",
+            "type": "Flowers",
+            "category": "Single-source",
+            "ingredients": "",
+            "id":8
+        }
+    ]
+}

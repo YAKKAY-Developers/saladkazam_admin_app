@@ -1,0 +1,109 @@
+<section class="content-wrapper" [class.ml-0]="accessType === 'T'">
+  <div class="row pl-4 pr-4">
+    <div class="button-row">
+      <button
+        mat-fab
+        color="primary"
+        class="remove"
+        (click)="removeMember()"
+        [disabled]="teamMembers.length < 1 || teamMembers.length === teamCount"
+      >
+        <mat-icon>remove</mat-icon></button
+      ><button
+        mat-fab
+        color="primary"
+        class="add"
+        (click)="addMember()"
+        [disabled]="teamMembers.length > totalStripes - 1"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <button
+        mat-fab
+        color="accent"
+        class="save hide"
+        (click)="save()"
+        [disabled]="!teamMembers.length"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <button
+        mat-fab
+        color="accent"
+        title="update status"
+        class="status"
+        (click)="updatedStatus()"
+        *ngIf="accessType === 'T'"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+      <button
+        mat-fab
+        color="warn"
+        class="download"
+        title="download"
+        (click)="domToImage()"
+        *ngIf="accessType === 'T'"
+      >
+        <mat-icon>save_alt</mat-icon>
+      </button>
+    </div>
+    <div class="zoombar hide">
+      <input
+        type="range"
+        min="1"
+        [max]="100 - defaultHeight"
+        [value]="1"
+        step="1"
+        id="zoomer"
+        (input)="zoomInOut($event)"
+      />
+    </div>
+    <div class="last-updatedon">
+      <label
+        ><span>Last Updated On -</span>
+        {{ infoUpdateTime | date: "MM-dd-yyyy hh:mm" }}</label
+      >
+    </div>
+  </div>
+  <div
+    id="pipeworks"
+    style="padding: 3rem 10px; margin: auto; width: max-content"
+  >
+    <div class="circule-box" #imageArea>
+      <div class="center-point" id="parentdiv">
+        <div class="parent" *ngIf="teamMembers.length">
+          <button mat-fab color="accent" [title]="userName">
+            {{ nameplate }}
+          </button>
+        </div>
+        <ng-container *ngFor="let team of teamMembers; let i = index">
+          <span class="line line-{{ i + 1 }}" (click)="levelChange(i, $event)">
+            <span class="member member-{{ i + 1 }}">
+              <input
+                [(ngModel)]="team.UserName"
+                (blur)="checkUser($event, team.UserId, i)"
+                autocomplete="off"
+              />
+              <!-- <mat-icon
+                class="cancel cancel-{{ i + 1 }}"
+                (click)="deleteMember(team?.UserId, team.UserName)"
+                *ngIf="teamCount > i"
+                >cancel</mat-icon
+              > -->
+              <i
+                class="fas fa-times-circle fa-2x cancel cancel-{{ i + 1 }}"
+                (click)="deleteMember(team?.UserId, team.UserName)"
+                *ngIf="teamCount > i"
+              ></i>
+            </span>
+          </span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="image2pdf" #pdfDiv>
+    <img [src]="imageUrl" style="visibility: hidden" />
+  </div>
+</section>
+<p-toast></p-toast>

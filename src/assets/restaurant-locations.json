@@ -1,0 +1,27 @@
+{
+    "restaurant_name": "Chick-fil-a",
+    "logo": "assets/images/great-american-restaurants-office.jpg",
+    "locations": 3,
+    "menu_items": 3,
+    "prepared_ingredients": 8,
+    "location_lists": [
+        {
+            "state": "Texas",
+            "address": "123, Fry road",
+            "city": "Houston",
+            "id":1
+        },
+        {
+            "state": "Texas",
+            "address": "456, Campell Road",
+            "city": "Austin",
+            "id":2
+        },
+        {
+            "state": "Nevada",
+            "address": "456, Stripe Blvd",
+            "city": "Las Vegas",
+            "id":3
+        }
+    ]
+}

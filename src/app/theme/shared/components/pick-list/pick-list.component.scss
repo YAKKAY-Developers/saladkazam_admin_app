@@ -1,0 +1,59 @@
+
+.subject-info-box-1,
+.subject-info-box-2 {
+  float: left;
+  width: 45%;
+
+  .picklist-title {
+    background: #dee2e6;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 4px;
+    border: 1px solid #ced4da;
+    border-radius: 2px 2px 0 0;
+    border-bottom: 0;
+  }
+
+  .custom-search {
+    padding: 4px 6px;
+    border: 1px solid #ced4da;
+    border-bottom: 0;
+  }
+
+  select {
+    height: 150px;
+    padding: 0;
+
+    option {
+      padding: 4px 10px 4px 10px;
+    }
+
+    option:hover {
+      background: #eeeeee;
+    }
+  }
+}
+
+.subject-info-arrows {
+  float: left;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    width: 70%;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    &.disabled {
+      pointer-events: none;
+      cursor: none;
+      opacity: 0.5;
+    }
+  }
+}

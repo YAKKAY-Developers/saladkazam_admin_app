@@ -1,0 +1,174 @@
+<div class="content-wrapper">
+    <div class="card">
+       
+        <p-tabView styleClass="tabview-custom">
+            <p-tabPanel>
+                <ng-template pTemplate="header">
+                    
+                    <span class="float-right" ><i class="fas fa-id-card-alt"></i>.  Basic Information</span>
+                </ng-template>
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">User Name [Pranav]</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form>
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="exampleInputEmail1"
+                                                class="col-sm-3 col-form-label">First Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="exampleInputEmail1"
+                                                    placeholder="Enter First Name" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="exampleInputEmail1" class="col-sm-3 col-form-label"> Last Name</label>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="form-control" id="exampleInputEmail1"
+                                                    placeholder="Enter Last Name" required>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <!-- /.card-body -->
+
+                                    <div class="form-group">
+                                        <div class="float-left ml-1">
+                                            <p-button label="Save" (click)="SaveEdit()" icon="pi pi-users"
+                                                styleClass="p-button-success" badge="S" badgeClass="p-badge-info">
+                                            </p-button>
+                                            <!-- /.info-box -->
+                                        </div>
+                                        <div class="float-right mr-1">
+                                            <p-button label="Reset" (click)="Cleardata()" icon="pi pi-users"
+                                                styleClass="p-button-warning" badge="C" badgeClass="p-badge-danger">
+                                            </p-button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- /.card -->
+
+                        </div>
+                        <!-- right column -->
+                        <div class="col-md-6">
+                            <!-- Form Element sizes -->
+
+                            <div class="form-group row">
+                                <label for="exampleInputEmail1" class="col-sm-3 col-form-label">Jender</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control select2" style="width: 100%;">
+                                        <option selected="selected">Female</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                   <div class="form-group row">
+                                        <label for="exampleInputEmail1" class="col-sm-3 col-form-label"> Contact No</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="exampleInputEmail1"
+                                                placeholder="Enter Contact No" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="exampleInputEmail1" class="col-sm-3 col-form-label"> Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="exampleInputEmail1"
+                                                placeholder="Enter Email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            
+                            <!-- /.card -->
+
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+            <p-tabPanel header="Header II">
+                <ng-template pTemplate="header">
+                    <i class="fas fa-user-friends"></i>
+                    <span>.  Communication</span>
+                </ng-template>
+                <div class="card card-default">
+                    <div class="card-header">
+                       
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Street</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                                placeholder="Enter Email" required>
+
+                                </div>
+
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                    placeholder="Enter Email" required>
+
+                                </div>
+
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <!-- <div class="form-group">
+                            <div class="float-left ml-1">
+                                <p-button label="Save" (click)="SaveEdit()" icon="pi pi-users"
+                                    styleClass="p-button-success" badge="S" badgeClass="p-badge-info">
+                                </p-button>
+                                /.info-box -->
+                        <!-- </div>
+                            <div class="float-right mr-1">
+                                <p-button label="Reset" (click)="Cleardata()" icon="pi pi-users"
+                                    styleClass="p-button-warning" badge="C" badgeClass="p-badge-danger">
+                                </p-button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                
+            </p-tabPanel>
+
+
+
+
+          
+        </p-tabView>
+    </div>
+</div>

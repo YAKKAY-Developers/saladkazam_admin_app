@@ -1,0 +1,79 @@
+{
+    "total_restaurants": 100,
+    "total_menus": 500,
+    "total_locations": 200,
+    "lists": [
+        {
+            "restaurant": "Chick-fil-a",
+            "locations": 100,
+            "menus": 200,
+            "id": 1
+        },
+        {
+            "restaurant": "Subway",
+            "locations": 50,
+            "menus": 200,
+            "id": 2
+        },
+        {
+            "restaurant": "McDonald's",
+            "locations": 30,
+            "menus": 200,
+            "id": 3
+        },
+        {
+            "restaurant": "Pizza hut",
+            "locations": 25,
+            "menus": 200,
+            "id": 4
+        },
+        {
+            "restaurant": "Burger King",
+            "locations": 15,
+            "menus": 200,
+            "id": 5
+        },
+        {
+            "restaurant": "Chilli's",
+            "locations": 22,
+            "menus": 200,
+            "id": 6
+        },
+        {
+            "restaurant": "BJs",
+            "locations": 18,
+            "menus": 200,
+            "id": 7
+        },
+        {
+            "restaurant": "Olive Garden",
+            "locations": 23,
+            "menus": 200,
+            "id": 8
+        },
+        {
+            "restaurant": "Starbucks",
+            "locations": 10,
+            "menus": 200,
+            "id": 9
+        },
+        {
+            "restaurant": "Perrys",
+            "locations": 10,
+            "menus": 200,
+            "id": 10
+        },
+        {
+            "restaurant": "Taco bell",
+            "locations": 10,
+            "menus": 200,
+            "id": 10
+        },
+        {
+            "restaurant": "Wendy's",
+            "locations": 10,
+            "menus": 200,
+            "id": 10
+        }
+    ]
+}

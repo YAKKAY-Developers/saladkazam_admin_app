@@ -1,0 +1,48 @@
+{
+   
+    "total_allergens": 30,
+    "items": [
+        {
+            "ingredient": "Lettuce",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "Romaine Lettuce",
+            "id":1
+        },
+        {
+            "ingredient": "Onion",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "White onion",
+            "id":2
+        },
+        {
+            "ingredient": "Strawberry",
+            "type": "Fruit",
+            "category": "Single-source",
+            "ingredients": "Red Strawberry",
+            "id":3
+        },
+        {
+            "ingredient": "Tomato",
+            "type": "Fruit",
+            "category": "Single-source",
+            "ingredients": "Romaine Lettuce",
+            "id":4
+        },
+        {
+            "ingredient": "Mushroom",
+            "type": "Vegetable",
+            "category": "Single-source",
+            "ingredients": "",
+            "id":5
+        },
+        {
+            "ingredient": "Sun flower",
+            "type": "Flowers",
+            "category": "Single-source",
+            "ingredients": "",
+            "id":6
+        }
+    ]
+}

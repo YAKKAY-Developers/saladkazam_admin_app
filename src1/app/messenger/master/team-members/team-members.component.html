@@ -1,0 +1,59 @@
+<section class="content-wrapper" [class.ml-0]="accessType === 'T'">
+  <div class="select">
+    <div class="left-container">
+      <select (change)="createPipe($event)" [(ngModel)]="selectedUserId">
+        <option value="">Select</option>
+        <option [value]="user.UserId" *ngFor="let user of users">
+          {{ user.FirstName }} {{ user.LastName }} - {{ user.GroupName[0] }}
+        </option>
+      </select>
+
+      <button
+        mat-mini-fab
+        color="warn"
+        class="download ml-3"
+        title="download"
+        (click)="domToImage()"
+        *ngIf="accessType === 'C'"
+        style="box-shadow: none"
+        [disabled]="!selectedUserId"
+      >
+        <mat-icon>save_alt</mat-icon>
+      </button>
+    </div>
+
+    <div class="last-updatedon">
+      <label
+        ><span>Last Updated On -</span>
+        {{ infoUpdateTime | date: "MM-dd-yyyy hh:mm" }}</label
+      >
+    </div>
+  </div>
+  <div
+    id="pipeworks"
+    style="padding: 3rem 10px; margin: auto; width: max-content"
+  >
+    <div class="circule-box" #imageArea>
+      <div class="center-point" id="parentdiv" *ngIf="teamMembers.length">
+        <div class="parent">
+          <button mat-fab color="accent" [title]="userName">
+            {{ nameplate }}
+          </button>
+        </div>
+        <ng-container *ngFor="let team of teamMembers; let i = index">
+          <span class="line line-{{ team.lineid }}">
+            <input
+              class="member-{{ team.lineid }}"
+              [(ngModel)]="team.UserName"
+              disabled
+            />
+          </span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="image2pdf" #pdfDiv>
+    <img [src]="imageUrl" style="visibility: hidden" />
+  </div>
+</section>

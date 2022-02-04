@@ -1,0 +1,396 @@
+<div class="wrapper">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" [class.ml-0]="accessType === 'T'">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <!-- <h1 class="m-0">Dashboard</h1> -->
+          </div>
+          <!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row" *ngIf="accessType !== 'T'">
+          <div
+            class="col-6"
+            [class.col-lg-4]="accessType === 'H'"
+            [class.col-lg-3]="accessType !== 'H'"
+          >
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ companyLists?.length ? companyLists?.length : 0 }}</h3>
+
+                <p>Company / Groups</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-building"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+
+          <div class="col-lg-3 col-6" *ngIf="accessType !== 'H'">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ totalCoach ? totalCoach : 0 }}</h3>
+
+                <p>Coaches</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-briefcase"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div
+            class="col-6"
+            [class.col-lg-4]="accessType === 'H'"
+            [class.col-lg-3]="accessType !== 'H'"
+          >
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ totalMembers ? totalMembers : 0 }}</h3>
+
+                <p>Clients</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div
+            class="col-6"
+            [class.col-lg-4]="accessType === 'H'"
+            [class.col-lg-3]="accessType !== 'H'"
+          >
+            <!-- small box -->
+            <div class="small-box bg-success custom-card">
+              <div class="inner">
+                <h3>{{ totalPipeWorks ? totalPipeWorks : 0 }}</h3>
+
+                <p>PipeWorks</p>
+              </div>
+              <div class="icon">
+                <img src="assets/images/members.png" />
+              </div>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+
+        <!-- /.row (main row) -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <div class="row" *ngIf="accessType !== 'T'">
+      <!-- /.content -->
+      <div class="col-md-12 mb-5" *ngIf="accessType !== 'H'">
+        <!-- Form Element sizes -->
+
+        <div class="card card-warning">
+          <div class="card-header" style="background-color: #88847ba6">
+            <h3 class="card-title">Company / Group List</h3>
+
+            <div class="card-tools">
+              <a
+                routerLink="/master/customer"
+                class="create-badge bg-primary"
+                *ngIf="accessType !== 'T'"
+              >
+                Add New Company
+              </a>
+              <a
+                routerLink="/master/customer"
+                class="create-badge bg-secondary hide"
+              >
+                View More
+              </a>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Company / Group</th>
+                  <th>Coach</th>
+                  <th>PipeWorks</th>
+                  <th style="width: 40px">Clients</th>
+                  <th class="align-center">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let company of companyLists; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ company?.CompanyName }}</td>
+                  <td>
+                    <span class="badge bg-secondary">{{
+                      company?.coachs
+                    }}</span>
+                  </td>
+                  <td>
+                    <div
+                      class="progress progress-xs"
+                      style="background-color: #eaf3ec"
+                    >
+                      <div
+                        class="progress-bar progress-bar-secondary"
+                        [style]="
+                          'background-color:#304154; width: ' +
+                          (company.Pipes / 15) * 100 +
+                          '%'
+                        "
+                      ></div>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge bg-secondary">{{
+                      company?.Members
+                    }}</span>
+                  </td>
+                  <td class="edit">
+                    <a
+                      routerLink="/master/customer/{{ company.CompanyID }}"
+                      class="create-badge bg-primary"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+                <!-- <tr>
+                <td>2.</td>
+                <td>Wibro</td>
+                <td><span class="badge bg-primary">6</span></td>
+                <td>
+                  <div class="progress progress-xs">
+                    <div
+                      class="progress-bar bg-warning"
+                      style="width: 70%"
+                    ></div>
+                  </div>
+                </td>
+                <td><span class="badge bg-warning">70</span></td>
+              </tr>
+              <tr>
+                <td>3.</td>
+                <td>Sales</td>
+                <td><span class="badge bg-primary">5</span></td>
+                <td>
+                  <div class="progress progress-xs progress-striped active">
+                    <div
+                      class="progress-bar bg-primary"
+                      style="width: 30%"
+                    ></div>
+                  </div>
+                </td>
+                <td><span class="badge bg-primary">30</span></td>
+              </tr>
+              <tr>
+                <td>4.</td>
+                <td>Marketing</td>
+                <td><span class="badge bg-primary">15</span></td>
+                <td>
+                  <div class="progress progress-xs progress-striped active">
+                    <div
+                      class="progress-bar bg-success"
+                      style="width: 90%"
+                    ></div>
+                  </div>
+                </td>
+                <td><span class="badge bg-success">90</span></td>
+              </tr> -->
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- right column -->
+      <div class="col-md-12 mb-5">
+        <!-- Form Element sizes -->
+
+        <div class="card card-warning">
+          <div class="card-header" style="background-color: #88847ba6">
+            <h3 class="card-title">Coaches</h3>
+
+            <div class="card-tools" blockClass="table-border-style">
+              <a
+                routerLink="/master/Coach"
+                class="create-badge bg-primary"
+                *ngIf="accessType !== 'H'"
+              >
+                Add New Coach
+              </a>
+              <a
+                routerLink="/master/Coach"
+                class="create-badge bg-secondary hide"
+              >
+                View More
+              </a>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Group</th>
+                  <th>Coach</th>
+                  <th>Client</th>
+                  <th>Email</th>
+                  <th class="align-center" *ngIf="accessType !== 'H'">Edit</th>
+                  <!-- <th style="width: 40px">Pipes</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ user?.GroupName[0] }}</td>
+                  <td>{{ user?.FirstName + " " + user?.LastName }}</td>
+                  <td>
+                    <span class="badge bg-secondary">{{
+                      user?.TeamMembers
+                    }}</span>
+                  </td>
+                  <td>{{ user?.Email }}</td>
+                  <td class="edit" *ngIf="accessType !== 'H'">
+                    <a
+                      routerLink="/master/Admin/{{ user.UserId }}"
+                      class="create-badge bg-primary"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                  <!-- <td>
+                    <span class="badge bg-warning">{{
+                      user?.PipeMembers
+                    }}</span>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <div class="row">
+      <!-- right column -->
+      <div class="col-md-12">
+        <!-- Form Element sizes -->
+
+        <div class="card card-warning">
+          <div class="card-header" style="background-color: #88847ba6">
+            <h3 class="card-title">Clients</h3>
+
+            <div class="card-tools" blockClass="table-border-style">
+              <a
+                [routerLink]="
+                  accessType === 'T' ? '/master/team-member' : '/master/Admin'
+                "
+                class="create-badge bg-primary"
+                *ngIf="accessType !== 'C'"
+              >
+                Add New Client
+              </a>
+              <a
+                routerLink="/master/ViewMembers"
+                class="create-badge bg-secondary hide"
+              >
+                View More
+              </a>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Group</th>
+                  <th>Team Head</th>
+                  <th>Client</th>
+                  <th>Email</th>
+                  <th>Gender</th>
+                  <th>PipeWorks</th>
+                  <th class="align-center" *ngIf="accessType !== 'C'">Edit</th>
+                  <th class="align-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let team of teams; let i = index">
+                  <td>{{ i + 1 }}.</td>
+                  <td>{{ team?.GroupName[0] }}</td>
+                  <td>{{ team?.teamHead[0] }}</td>
+                  <td>{{ team?.FirstName }} {{ team?.LastName }}</td>
+                  <td>
+                    {{ team?.Email }}
+                  </td>
+                  <td>{{ team?.Gender }}</td>
+                  <td>
+                    <span class="badge bg-secondary">{{
+                      team?.PipeMembers
+                    }}</span>
+                  </td>
+                  <td class="edit" *ngIf="accessType !== 'C'">
+                    <a
+                      routerLink="/master/Admin/{{ team.UserId }}"
+                      class="create-badge bg-primary"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                  <td class="edit">
+                    <a
+                      routerLink="/master/ViewMembers/{{ team.UserId }}"
+                      class="create-badge view-pipe"
+                      title="view"
+                    >
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->

@@ -1,0 +1,96 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="card">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12">
+          <div class="card-body">
+            <form
+              #loginForm="ngForm"
+              (ngSubmit)="loginForm.form.valid && onLogin()"
+              novalidate
+            >
+              <h4 class="mb-3 f-w-400">Sign In</h4>
+              <div
+                class="input-group mb-3"
+                [class.is-invalid]="loginForm.submitted && username.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="feather icon-mail"></i
+                  ></span>
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="User Name"
+                  (blur)="loginValidation()"
+                  required
+                  #username="ngModel"
+                  autocomplete="off"
+                  [(ngModel)]="UserName"
+                />
+                <div
+                  class="error-field"
+                  *ngIf="loginForm.submitted && username.errors?.required"
+                >
+                  User name is required
+                </div>
+              </div>
+              <div
+                class="input-group mb-4"
+                [class.is-invalid]="loginForm.submitted && password.invalid"
+              >
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="feather icon-lock"></i
+                  ></span>
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                  #password="ngModel"
+                  [(ngModel)]="UserPwd"
+                  autocomplete="off"
+                  minlength="6"
+                />
+                <div
+                  class="error-field"
+                  *ngIf="loginForm.submitted && password.errors?.required"
+                >
+                  Password is required
+                </div>
+                <div
+                  *ngIf="loginForm.submitted && password.errors?.minlength"
+                  class="error-field"
+                >
+                  Password must be at least 6 characters
+                </div>
+              </div>
+              <button
+                class="btn btn-block btn-primary mb-4"
+                [disabled]="loading"
+              >
+                <span> {{ loading ? " Loading... " : "Sign In" }} </span>
+              </button>
+              <p class="mb-2 text-muted">
+                Forgot password?
+                <a [routerLink]="['/auth/reset-password']" class="f-w-400"
+                  >Reset</a
+                >
+              </p>
+              <p class="mb-0 text-muted hide">
+                Don’t have an account?
+                <a [routerLink]="['/auth/signup']" class="f-w-400">Sign Up</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

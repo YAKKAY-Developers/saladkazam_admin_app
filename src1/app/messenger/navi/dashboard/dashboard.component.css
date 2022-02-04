@@ -1,0 +1,24 @@
+.card-body {
+  overflow-x: auto;
+}
+.bg-primary {
+  background-color: #1f4267 !important;
+}
+.edit {
+  width: 15%;
+  text-align: center;
+}
+.view-pipe {
+  color: #1f4267;
+}
+.custom-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.custom-card img {
+  width: 100px;
+  height: 80px;
+  margin-right: 15px;
+  opacity: 0.5;
+}

@@ -1,0 +1,47 @@
+.card .card-header {
+  display: none;
+}
+
+table {
+  td {
+    a {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: 600;
+        color: #060606;
+    }
+    span {
+      display: flex;
+      align-items: center;
+      height: 50px;
+    }
+  }
+}
+
+.upload-area {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: fit-content;
+    img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+}
+
+.custom-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .icon {
+    i {
+      width: 100%;
+      height: 100%;
+      font-size: 40px;
+    }
+  }
+}
